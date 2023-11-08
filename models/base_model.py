@@ -5,10 +5,16 @@ from datetime import datetime
 
 
 class BaseModel:
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         self.id = str(uuid4())
         self.created_at = datetime.today()
         self.updated_at = datetime.today()
+        if len(kwargs) != 0:
+            for key, val in kwargs.items():
+                if key == "created_at" or key == "updated_at":
+                    self.__dict__[key] = datetime.strptime(val, iso_format)
+                else:
+                    self.__dict__[key] = val
 
     def __str__(self):
         return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
@@ -22,3 +28,4 @@ class BaseModel:
         re_dict["updated_at"] = self.updated_at.isoformat()
         re_dict["__class__"] = self.__class__.__name__
         return re_dict
+
