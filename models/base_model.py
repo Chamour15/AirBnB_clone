@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-"""BaseModel class definition for all common attributes/methods for other cls"""
+"""BaseModel class definition for all common attributes/methods
+for other classes.
+"""
 from uuid import uuid4
 from datetime import datetime
 
@@ -9,6 +11,7 @@ class BaseModel:
         self.id = str(uuid4())
         self.created_at = datetime.today()
         self.updated_at = datetime.today()
+        iso_format = "%Y-%m-%dT%H:%M:%S.%f"
         if len(kwargs) != 0:
             for key, val in kwargs.items():
                 if key == "created_at" or key == "updated_at":
@@ -19,7 +22,7 @@ class BaseModel:
     def __str__(self):
         return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
 
-    def save (self):
+    def save(self):
         self.updated_at = datetime.today()
 
     def to_dict(self):
@@ -28,4 +31,3 @@ class BaseModel:
         re_dict["updated_at"] = self.updated_at.isoformat()
         re_dict["__class__"] = self.__class__.__name__
         return re_dict
-
