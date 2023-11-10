@@ -148,9 +148,9 @@ class HBNBCommand(cmd.Cmd):
             cmdl = [line[:regular.span()[0]], line[regular.span()[1]:]]
             _regular = re.search(r"\((.*?)\)", cmdl[1])
             if _regular is not None:
-                command = [cmdl[1][:_regular.span()[0]], _regular.group()[1:-1]]
-                if command[0] in cmd.keys():
-                    return cmd[command[0]](f"{cmdl[0]} {command[1]}")
+                _cmd = [cmdl[1][:_regular.span()[0]], _regular.group()[1:-1]]
+                if _cmd[0] in cmd.keys():
+                    return cmd[_cmd[0]](f"{cmdl[0]} {_cmd[1]}")
         print(f"*** Unknown syntax: {line}")
         return False
 
