@@ -9,6 +9,7 @@ from models.city import City
 from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
+import re
 
 
 class HBNBCommand(cmd.Cmd):
@@ -136,6 +137,22 @@ class HBNBCommand(cmd.Cmd):
                 else:
                     obj.__dict__[k] = val
         storage.save()
+
+    def default(self, line):
+        """retrieve instances by class name."""
+        cmd = {
+            "all": self.do_all,
+        }
+        regular = re.search(r"\.", line)
+        if regular is not None:
+            cmdl = [line[:regular.span()[0]], line[regular.span()[1]:]]
+            _regular = re.search(r"\((.*?)\)", cmdl[1])
+            if _regular is not None:
+                command = [cmdl[1][:_regular.span()[0]], _regular.group()[1:-1]]
+                if command[0] in cmd.keys():
+                    return cmd[command[0]](f"{cmdl[0]} {command[1]}")
+        print(f"*** Unknown syntax: {line}")
+        return False
 
 
 if __name__ == '__main__':
