@@ -4,6 +4,11 @@ import cmd
 from shlex import split
 from models.base_model import BaseModel
 from models import storage
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 
 class HBNBCommand(cmd.Cmd):
@@ -12,7 +17,7 @@ class HBNBCommand(cmd.Cmd):
         prompt: custom command prompt: (hbnb)
     """
     prompt = "(hbnb) "
-    __clss = {"BaseModel"}
+    __clss = {"BaseModel", "State", "City", "Amenity", "Place", "Review"}
 
     def do_quit(self, arg):
         """Quit command to exit the console."""
