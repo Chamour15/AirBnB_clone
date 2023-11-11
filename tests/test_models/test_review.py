@@ -165,7 +165,7 @@ class Test_Review_to_dict(unittest.TestCase):
         new_review = Review()
         new_review.name = "DAKHA"
         new_review.number = 11
-        self.assertEqual("DAKHA", new_review.middle_name)
+        self.assertEqual("DAKHA", new_review.name)
         self.assertIn("number", new_review.to_dict())
 
     def test_to_dict_datetime_attributes_are_strs(self):
@@ -178,7 +178,7 @@ class Test_Review_to_dict(unittest.TestCase):
     def test_to_dict_output(self):
         _datetime = datetime.today()
         new_review = Review()
-        new_review.id = "123456"
+        new_review.id = "777777"
         new_review.created_at = new_review.updated_at = _datetime
         test_dict = {
             'id': '777777',

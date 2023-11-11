@@ -153,7 +153,7 @@ class Test_State_to_dict(unittest.TestCase):
         new_state = State()
         new_state.name = "Rabat"
         new_state.state_number = 1
-        self.assertEqual("Rabat", new_state.middle_name)
+        self.assertEqual("Rabat", new_state.name)
         self.assertIn("state_number", new_state.to_dict())
 
     def test_to_dict_datetime_attributes_are_strs(self):
