@@ -142,6 +142,7 @@ class HBNBCommand(cmd.Cmd):
         """retrieve instances by class name."""
         cmd = {
             "all": self.do_all,
+            "count": self.do_count,
         }
         regular = re.search(r"\.", line)
         if regular is not None:
@@ -153,6 +154,16 @@ class HBNBCommand(cmd.Cmd):
                     return cmd[_cmd[0]](f"{cmdl[0]} {_cmd[1]}")
         print(f"*** Unknown syntax: {line}")
         return False
+
+    def do_count(self, arg):
+        """retrieve the number of instances of a class.
+        Usage: (hbnb) User.count()"""
+        cmd_line = [i.strip(",") for i in split(arg)]
+        instance_numbers = 0
+        for obj in storage.all().values():
+            if cmd_line[0] == obj.__class__.__name__:
+                instance_numbers += 1
+        print(instance_numbers)
 
 
 if __name__ == '__main__':
