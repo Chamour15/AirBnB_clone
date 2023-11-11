@@ -8,7 +8,14 @@ import models
 
 
 class BaseModel:
+    """BaseModel of all instances."""
     def __init__(self, *args, **kwargs):
+        """initialize new BaseModel.
+
+        Args:
+            *args: unused.
+            **kwargs: Key/value pairs of attributes.
+        """
         self.id = str(uuid4())
         self.created_at = datetime.today()
         self.updated_at = datetime.today()
@@ -23,13 +30,20 @@ class BaseModel:
             models.storage.new(self)
 
     def __str__(self):
+        """print BaseModel instance."""
         return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
 
     def save(self):
+        """updates the public instance attribute updated_at,
+        with the current time.
+        """
         self.updated_at = datetime.today()
         models.storage.save()
 
     def to_dict(self):
+        """returns a dictionary containing all keys/values
+        of __dict__ of the instance.
+        """
         re_dict = self.__dict__.copy()
         re_dict["created_at"] = self.created_at.isoformat()
         re_dict["updated_at"] = self.updated_at.isoformat()
