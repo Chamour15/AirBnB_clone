@@ -13,6 +13,17 @@ import re
 from models.user import User
 
 
+def parse_command(arg):
+    curlybrace_regular = re.search(r"\{(.*?)\}", arg)
+    if curlybrace_regular is None:
+        return [i.strip(",") for i in split(arg)]
+    else:
+        spliter = split(arg[:curlybrace_regular.span()[0]])
+        ret_exp = [i.strip(",") for i in spliter]
+        ret_exp.append(curlybrace_regular.group())
+        return ret_exp
+
+
 class HBNBCommand(cmd.Cmd):
     """HBNBCommand interpreter.
     Attributes:
@@ -105,7 +116,7 @@ class HBNBCommand(cmd.Cmd):
         """Updates an instance based on the class name and id
         by adding or updating attribute (save the change into the JSON file).
         Usage: update <class name> <id> <attribute name> "<attribute value>"""
-        cmd_line = [i.strip(",") for i in split(arg)]
+        cmd_line = parse_command(arg)
         objs = storage.all()
         if len(cmd_line) == 0:
             print("** class name missing **")
@@ -152,6 +163,8 @@ class HBNBCommand(cmd.Cmd):
             "all": self.do_all,
             "count": self.do_count,
             "show": self.do_show,
+            "destroy": self.do_destroy,
+            "update": self.do_update
         }
         regular = re.search(r"\.", line)
         if regular is not None:
