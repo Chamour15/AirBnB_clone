@@ -10,6 +10,7 @@ from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
 import re
+from models.user import User
 
 
 class HBNBCommand(cmd.Cmd):
@@ -18,7 +19,7 @@ class HBNBCommand(cmd.Cmd):
         prompt: custom command prompt: (hbnb)
     """
     prompt = "(hbnb) "
-    __clss = {"BaseModel", "State", "City", "Amenity", "Place", "Review"}
+    __clss = {"BaseModel", "State", "City", "Amenity", "Place", "Review", "User"}
 
     def do_quit(self, arg):
         """Quit command to exit the console."""
@@ -143,6 +144,7 @@ class HBNBCommand(cmd.Cmd):
         cmd = {
             "all": self.do_all,
             "count": self.do_count,
+            "show": self.do_show,
         }
         regular = re.search(r"\.", line)
         if regular is not None:

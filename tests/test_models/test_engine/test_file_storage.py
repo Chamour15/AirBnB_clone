@@ -148,7 +148,7 @@ class Test_FileStorage_methods(unittest.TestCase):
         models.storage.new(new_review)
         models.storage.save()
         models.storage.reload()
-        objs = FileStorage.__objects
+        objs = FileStorage._FileStorage__objects
         self.assertIn("BaseModel." + new_base_model.id, objs)
         self.assertIn("User." + new_user.id, objs)
         self.assertIn("State." + new_state.id, objs)
