@@ -20,13 +20,13 @@ class HBNBCommand(cmd.Cmd):
     """
     prompt = "(hbnb) "
     __clss = {"BaseModel",
-          "State",
-          "City",
-          "Amenity",
-          "Place",
-          "Review",
-          "User"
-        }   
+              "State",
+              "City",
+              "Amenity",
+              "Place",
+              "Review",
+              "User"
+              }
 
     def do_quit(self, arg):
         """Quit command to exit the console."""
