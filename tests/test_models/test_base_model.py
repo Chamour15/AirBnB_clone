@@ -24,22 +24,24 @@ class Test_BaseModel_init(unittest.TestCase):
         self.assertNotIn(None, base_model.__dict__.values())
 
     def test_instantiation_with_kwargs(self):
-        iso_f = datetime.today().isoformat()
+        _datetime = datetime.today()
+        iso_f = _datetime.isoformat()
         base_model = BaseModel(id="abc123", created_at=iso_f, updated_at=iso_f)
         self.assertEqual(base_model.id, "abc123")
-        self.assertEqual(base_model.created_at, datetime.today())
-        self.assertEqual(base_model.updated_at, datetime.today())
+        self.assertEqual(base_model.created_at, _datetime)
+        self.assertEqual(base_model.updated_at, _datetime)
 
     def test_instantiation_with_None_kwargs(self):
         with self.assertRaises(TypeError):
             BaseModel(id=None, created_at=None, updated_at=None)
 
     def test_instantiation_with_args_and_kwargs(self):
-        iso_f = datetime.today().isoformat()
+        _datetime = datetime.today()
+        iso_f = _datetime.isoformat()
         basm = BaseModel("7", id="a7", created_at=iso_f, updated_at=iso_f)
         self.assertEqual(basm.id, "a7")
-        self.assertEqual(basm.created_at, datetime.today())
-        self.assertEqual(basm.updated_at, datetime.today())
+        self.assertEqual(basm.created_at, _datetime)
+        self.assertEqual(basm.updated_at, _datetime)
 
     def test_new_instance_stored_in_object(self):
         self.assertIn(BaseModel(), models.storage.all().values())
@@ -71,15 +73,16 @@ class Test_BaseModel_init(unittest.TestCase):
         self.assertLess(base_model1.updated_at, base_model2.updated_at)
 
     def test_str_representation(self):
-        _datetime = repr(datetime.today())
+        _datetime = datetime.today()
+        datetime_rep = repr(_datetime)
         base_model = BaseModel()
         base_model.id = "abcd1234"
-        base_model.created_at = base_model.updated_at = datetime.today()
+        base_model.created_at = base_model.updated_at = _datetime
         base_model_str = base_model.__str__()
         self.assertIn("[BaseModel] (abcd1234)", base_model_str)
         self.assertIn("'id': 'abcd1234'", base_model_str)
-        self.assertIn("'created_at': " + _datetime, base_model_str)
-        self.assertIn("'updated_at': " + _datetime, base_model_str)
+        self.assertIn("'created_at': " + datetime_rep, base_model_str)
+        self.assertIn("'updated_at': " + datetime_rep, base_model_str)
 
 
 class Test_BaseModel_save(unittest.TestCase):
@@ -160,14 +163,15 @@ class Test_BaseModel_to_dict(unittest.TestCase):
         self.assertEqual(str, type(base_model_dict["updated_at"]))
 
     def test_to_dict_output(self):
+        _datetime = datetime.today()
         base_model = BaseModel()
         base_model.id = "11"
-        base_model.created_at = base_model.updated_at = datetime.today()
+        base_model.created_at = base_model.updated_at = _datetime
         test_dict = {
             'id': '11',
             '__class__': 'BaseModel',
-            'created_at': datetime.today().isoformat(),
-            'updated_at': datetime.today().isoformat()
+            'created_at': _datetime.isoformat(),
+            'updated_at': _datetime.isoformat()
         }
         self.assertDictEqual(base_model.to_dict(), test_dict)
 
