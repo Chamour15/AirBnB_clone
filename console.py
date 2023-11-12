@@ -19,7 +19,14 @@ class HBNBCommand(cmd.Cmd):
         prompt: custom command prompt: (hbnb)
     """
     prompt = "(hbnb) "
-    __clss = {"BaseModel", "State", "City", "Amenity", "Place", "Review", "User"}
+    __clss = {"BaseModel",
+          "State",
+          "City",
+          "Amenity",
+          "Place",
+          "Review",
+          "User"
+        }   
 
     def do_quit(self, arg):
         """Quit command to exit the console."""
