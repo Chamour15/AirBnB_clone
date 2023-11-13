@@ -1396,8 +1396,9 @@ class Test_HBNBCommand_count(unittest.TestCase):
 class Test_HBNBCommand_help(unittest.TestCase):
     """testing help messages of the HBNBCommand interpreter."""
     def test_help_create(self):
-        msg = ("Creates a new instance of BaseModel, saves it (to the JSON file)\n        "
-             "and prints the id. Usage: $ create BaseModel")
+        msg = ("Creates a new instance of BaseModel, saves it "
+               "(to the JSON file)\n        "
+               "and prints the id. Usage: $ create BaseModel")
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("help create"))
             self.assertEqual(msg, output.getvalue().strip())
@@ -1429,7 +1430,7 @@ class Test_HBNBCommand_help(unittest.TestCase):
 
     def test_help_count(self):
         msg = ("retrieve the number of instances of a class.\n        "
-             "Usage: (hbnb) User.count()")
+               "Usage: (hbnb) User.count()")
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("help count"))
             self.assertEqual(msg, output.getvalue().strip())
@@ -1446,8 +1447,8 @@ class Test_HBNBCommand_help(unittest.TestCase):
 
     def test_help(self):
         msg = ("Documented commands (type help <topic>):\n"
-             "========================================\n"
-             "EOF  all  count  create  destroy  help  quit  show  update")
+               "========================================\n"
+               "EOF  all  count  create  destroy  help  quit  show  update")
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("help"))
             self.assertEqual(msg, output.getvalue().strip())
